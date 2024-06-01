@@ -468,8 +468,8 @@ namespace PauseInMultiplayer
                 inSkullLast = inSkull;
             }
 
-            //apply the logic to remove 2000 from the time interval if everyone is in the skull cavern and this hasn't been done yet per this 10 minute day period
-            if (Context.IsMainPlayer && Game1.gameTimeInterval > 6000 && allInSkull())
+            //apply the logic to remove 2000 from the time interval if anyone is in the skull cavern and this hasn't been done yet per this 10 minute day period
+            if (Context.IsMainPlayer && Game1.gameTimeInterval > 6000 && anyInSkull())
             {
                 if (!extraTimeAdded)
                 {
@@ -731,14 +731,14 @@ namespace PauseInMultiplayer
 
         }
 
-        private bool allInSkull()
+        private bool anyInSkull()
         {
             if (Context.IsMainPlayer)
             {
                 foreach (string inSkull in inSkullAll.Values)
-                    if (inSkull == "false") return false;
+                    if (inSkull == "true") return true;
 
-                return true;
+                return false;
             }
 
             return false;
